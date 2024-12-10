@@ -1,0 +1,7 @@
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\bin\Debug\Projet_A2_S1.exe.config
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\bin\Debug\Projet_A2_S1.exe
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\bin\Debug\Projet_A2_S1.pdb
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\obj\Debug\Projet_A2_S1.csproj.AssemblyReference.cache
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\obj\Debug\Projet_A2_S1.csproj.CoreCompileInputs.cache
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\obj\Debug\Projet_A2_S1.exe
+C:\Users\Clovis\source\repos\Projet_A2_S1\Projet_A2_S1\obj\Debug\Projet_A2_S1.pdb
