@@ -54,13 +54,49 @@ namespace Projet_A2_S1
         private string langue;
         private string[] dictionnaire;
 
-        public Dictionnaire(string Langue, string[] Dictionnaire)
+        public Dictionnaire(string Langue)
         {
             langue = Langue;
-            if (langue == "English") dictionnaire = File.ReadAllText("Mots_PossiblesEN.txt").Split(' ');
-            else dictionnaire = File.ReadAllText("Mots_PossiblesFR.txt").Split(' ');
+            if (langue == "English") dictionnaire = File.ReadAllText("MotsPossiblesEN.txt").Split(' ');
+            else dictionnaire = File.ReadAllText("MotsPossiblesFR.txt").Split(' ');
             TriFusion(dictionnaire);
 
+        }
+        public string toString()
+        {
+            string resultat = "Ce dictionnaire "+langue+"contient : \n";
+            int[] nbMotsParTaille = new int[30];
+            char lettre;
+            for (int i = 0;i<dictionnaire.Length;i++)
+            {
+                nbMotsParTaille[dictionnaire[i].Length] +=1;
+            }
+            Dictionary<char,int> nbMotsParLettre = new Dictionary<char,int>();
+            for (int i = 0; i < dictionnaire.Length; i++)
+            {
+                if (dictionnaire[i] != null && dictionnaire[i].Length > 0)
+                {
+                    lettre = dictionnaire[i][0];
+                    if (!nbMotsParLettre.ContainsKey(lettre))
+                    {
+                        nbMotsParLettre.Add(lettre, 1);
+                    }
+                    else nbMotsParLettre[lettre] += 1;
+                }
+            }
+            for (int i = 2; i < 30; i++)
+            {
+                if (nbMotsParTaille[i] != 0)
+                {
+                    resultat += $"{nbMotsParTaille[i]} mots de taille {i}\n";
+                }
+            }
+            resultat += "\n";
+            for (int i=97; i < 123; i++) //lettres a-z
+            {
+                resultat += $"mots commencant par {(char)i} : {nbMotsParLettre[(char)i]}+=\n";
+            }
+            return resultat;
         }
     }
 }
