@@ -20,8 +20,10 @@ namespace Projet_A2_S1
             //Console.WriteLine(de1.toString());
             ////de1.Lance();
             //Console.WriteLine(de1.toString());
-            Dictionnaire dico = new Dictionnaire("English");
-            Console.WriteLine(dico.toString());
+            //Dictionnaire dico = new Dictionnaire("English");
+            //Console.WriteLine(dico.toString());
+            Plateau plateau = new Plateau(4);
+            Console.WriteLine(plateau.toString());
         }
     }
 }

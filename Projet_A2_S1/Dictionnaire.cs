@@ -64,8 +64,8 @@ namespace Projet_A2_S1
         }
         public string toString()
         {
-            string resultat = "Ce dictionnaire "+langue+"contient : \n";
-            int[] nbMotsParTaille = new int[30];
+            string resultat = "Ce dictionnaire "+langue+" contient : \n";
+            int[] nbMotsParTaille = new int[16];
             char lettre;
             for (int i = 0;i<dictionnaire.Length;i++)
             {
@@ -84,7 +84,7 @@ namespace Projet_A2_S1
                     else nbMotsParLettre[lettre] += 1;
                 }
             }
-            for (int i = 2; i < 30; i++)
+            for (int i = 2; i < 16; i++)
             {
                 if (nbMotsParTaille[i] != 0)
                 {
@@ -92,11 +92,32 @@ namespace Projet_A2_S1
                 }
             }
             resultat += "\n";
-            for (int i=97; i < 123; i++) //lettres a-z
+            // ne sait pas pourquoi ca ne marche pas
+            //for (int i=97; i < 123; i++) //lettres a-z
+            //{
+            //    if (nbMotsParLettre.ContainsKey((char)i))
+            //    {
+            //        resultat += $"mots commencant par {(char)i} : {nbMotsParLettre[(char)i]}+=\n";
+            //    }
+            //}
+            foreach (KeyValuePair<char, int> entry in nbMotsParLettre)
             {
-                resultat += $"mots commencant par {(char)i} : {nbMotsParLettre[(char)i]}+=\n";
+                resultat += $"mots commencant par {entry.Key} : {entry.Value}\n";
             }
             return resultat;
+        }
+        public bool RechDicoRecursif(string mot, int debut, int fin)
+        {
+            if (debut == fin) return mot == dictionnaire[debut];
+            int milieu = (debut + fin) / 2;
+            if (mot.CompareTo(dictionnaire[milieu]) < 0)
+            {
+                return RechDicoRecursif(mot, debut, milieu);
+            }
+            else
+            {
+                return RechDicoRecursif(mot, milieu + 1, fin);
+            }
         }
     }
 }
