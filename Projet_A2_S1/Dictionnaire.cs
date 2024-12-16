@@ -126,6 +126,10 @@ namespace Projet_A2_S1
         {
             get { return dictionnaire; }
         }
+        /// <summary>
+        /// constructeur de la classe Dictionnaire
+        /// </summary>
+        /// <param name="Langue"></param>
         public Dictionnaire(string Langue)
         {
             langue = Langue;

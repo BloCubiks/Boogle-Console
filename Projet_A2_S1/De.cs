@@ -26,7 +26,9 @@ namespace Projet_A2_S1
             lettre_visible = lettres[0];
         }
         Random aleatoire = new Random();
-
+        /// <summary>
+        /// attribue une valeur aleatoire parmis les faces à la lettre visible
+        /// </summary>
         public void Lance()
         {
             lettre_visible=faces[aleatoire.Next(0,6)];

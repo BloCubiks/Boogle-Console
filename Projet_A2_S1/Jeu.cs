@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Projet_A2_S1
 {
@@ -51,51 +52,58 @@ namespace Projet_A2_S1
             while (taille < 4)
             {
                 Console.WriteLine("Saisissez la taille du plateau (4 minimum)");
-                int.TryParse(Console.ReadLine(), out taille);
+                if(!int.TryParse(Console.ReadLine(), out taille)) Console.WriteLine("mauvaise saisie");
             }
             Plateau plateau = new Plateau(taille);
             int tour = 1;
             bool[,] dejaVu;
             string mot;
             bool motpresent;
-
+            int compteurTour = 0;
             ///Déroulement du jeu
             while (tour <= nbToursParJoueur)
             {
-                Console.WriteLine("TOUR " + tour);
+                compteurTour++;
+                Console.WriteLine("TOUR " + compteurTour);
                 ///Tour joueur
                 for (int i = 0; i < nbJoueurs; i++)
                 {
-                    Console.WriteLine("C'est au tour de " + joueurs[i].Nom);
-                    plateau.ShufflePlateau();
-                    Console.WriteLine(plateau.toString());
-                    mot = Console.ReadLine().ToUpper();
-                    if (mot.Length > 1)
+                    Stopwatch temps = new Stopwatch();
+                    temps.Start();
+                    while (temps.Elapsed.TotalSeconds < 60)
                     {
-                        if (dico.RechDichoRecursif(mot, 0, dico.GetDictionnaire.Length))
+                        Console.WriteLine("C'est au tour de " + joueurs[i].Nom);
+                        plateau.ShufflePlateau();
+                        Console.WriteLine(plateau.toString());
+                        mot = Console.ReadLine().ToUpper();
+                        if (mot.Length > 1)
                         {
-                            if (plateau.MotPresent(mot))
+                            if (dico.RechDichoRecursif(mot, 0, dico.GetDictionnaire.Length))
                             {
-                                Console.WriteLine("Le mot est valide");
-                                joueurs[i].Add_Mot(mot);
+                                if (plateau.MotPresent(mot))
+                                {
+                                    Console.WriteLine("Le mot est valide");
+                                    joueurs[i].Add_Mot(mot);
 
-                                joueurs[i].Add_Score((byte)plateau.CalculerPoints(mot));
-                                Console.WriteLine(joueurs[i].toString());
+                                    joueurs[i].Add_Score((byte)plateau.CalculerPoints(mot));
+                                    Console.WriteLine(joueurs[i].toString());
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Le mot n'est pas dans le plateau");
+                                }
                             }
                             else
                             {
-                                Console.WriteLine("Le mot n'est pas dans le plateau");
+                                Console.WriteLine("Le mot n'est pas dans le dictionnaire");
                             }
                         }
                         else
                         {
-                            Console.WriteLine("Le mot n'est pas dans le dictionnaire");
+                            Console.WriteLine("Le mot n'est pas valide");
                         }
                     }
-                    else
-                    {
-                        Console.WriteLine("Le mot n'est pas valide");
-                    }
+                    temps.Stop();
                 }
             }
         }  
