@@ -33,13 +33,13 @@ namespace Projet_A2_S1
             while (nbToursParJoueur < 1)
             {
                 Console.WriteLine("Saisissez le nombre de tours par joueur");
-                nbToursParJoueur = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out nbToursParJoueur);
             }
             int nbJoueurs = -1;
             while (nbJoueurs < 1)
             {
                 Console.WriteLine("Saisissez le nombre de joueurs");
-                nbJoueurs = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out nbJoueurs);
             }
             Joueur[] joueurs = new Joueur[nbJoueurs];
             for (int i = 0; i < nbJoueurs; i++)
@@ -51,7 +51,7 @@ namespace Projet_A2_S1
             while (taille < 4)
             {
                 Console.WriteLine("Saisissez la taille du plateau (4 minimum)");
-                taille = int.Parse(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out taille);
             }
             Plateau plateau = new Plateau(taille);
             int tour = 1;
