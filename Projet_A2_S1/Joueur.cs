@@ -16,6 +16,10 @@ namespace Projet_A2_S1
         {
             get { return nom; }
         }
+        public Dictionary<string, int> Mots
+        {
+            get { return motsTrouves; }
+        }
         public Joueur(string Nom)
         {
             nom = Nom;

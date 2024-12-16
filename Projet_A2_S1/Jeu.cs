@@ -10,6 +10,11 @@ namespace Projet_A2_S1
 {
     internal class Jeu
     {
+        static void Passer()
+        {
+            Console.WriteLine("Appuyez sur une Entrée pour continuer");
+            string j = Console.ReadLine();
+        }
         static void Main(string[] args)
         {
             ///Initialisation du jeu
@@ -52,50 +57,75 @@ namespace Projet_A2_S1
             while (taille < 4)
             {
                 Console.WriteLine("Saisissez la taille du plateau (4 minimum)");
-                if(!int.TryParse(Console.ReadLine(), out taille)) Console.WriteLine("mauvaise saisie");
+                if (!int.TryParse(Console.ReadLine(), out taille)) Console.WriteLine("mauvaise saisie");
             }
             Plateau plateau = new Plateau(taille);
-            int tour = 1;
-            bool[,] dejaVu;
             string mot;
-            bool motpresent;
             int compteurTour = 0;
+            bool trouve;
+            List<string> motsParRound;
+            Console.WriteLine(" ____    __ _           _         _           _            \r\n|  _ \\  /_/| |__  _   _| |_    __| |_   _    (_) ___ _   _ \r\n| | | |/ _ \\ '_ \\| | | | __|  / _` | | | |   | |/ _ \\ | | |\r\n| |_| |  __/ |_) | |_| | |_  | (_| | |_| |   | |  __/ |_| |\r\n|____/ \\___|_.__/ \\__,_|\\__|  \\__,_|\\__,_|  _/ |\\___|\\__,_|\r\n                                           |__/            ");
             ///Déroulement du jeu
-            while (tour <= nbToursParJoueur)
+            while (compteurTour < nbToursParJoueur)
             {
+                int JoueurEnCours = 0;
                 compteurTour++;
-                Console.WriteLine("TOUR " + compteurTour);
-                ///Tour joueur
-                for (int i = 0; i < nbJoueurs; i++)
+                while (JoueurEnCours < nbJoueurs)
                 {
-                    Stopwatch temps = new Stopwatch();
-                    temps.Start();
-                    while (temps.Elapsed.TotalSeconds < 60)
+                    Passer();
+                    motsParRound = new List<string>();
+                    Console.WriteLine("TOUR " + compteurTour);
+                    Console.WriteLine("C'est au tour de " + joueurs[JoueurEnCours].Nom);
+                    plateau.ShufflePlateau();
+                    ///Tour joueur
+                    DateTime finTour = DateTime.Now.AddSeconds(60);
+                    Console.WriteLine("Décompte de 60 secondes :");
+                    while (finTour > DateTime.Now)
                     {
-                        Console.WriteLine("C'est au tour de " + joueurs[i].Nom);
-                        plateau.ShufflePlateau();
+                        Console.WriteLine("Temps restant : " + (finTour - DateTime.Now) + " secondes");
                         Console.WriteLine(plateau.toString());
                         mot = Console.ReadLine().ToUpper();
-                        if (mot.Length > 1)
+                        if (DateTime.Now > finTour)
                         {
-                            if (dico.RechDichoRecursif(mot, 0, dico.GetDictionnaire.Length))
-                            {
-                                if (plateau.MotPresent(mot))
-                                {
-                                    Console.WriteLine("Le mot est valide");
-                                    joueurs[i].Add_Mot(mot);
+                            Console.WriteLine("Temps écoulé");
+                            break;
+                        }
 
-                                    joueurs[i].Add_Score((byte)plateau.CalculerPoints(mot));
-                                    Console.WriteLine(joueurs[i].toString());
-                                }
-                                else
+                        else if (mot.Length > 1)
+                        {
+                            trouve = false;
+                            for (int i = 0; i < motsParRound.Count && !trouve; i++)
+                            {
+                                if (motsParRound[i] == mot)
                                 {
-                                    Console.WriteLine("Le mot n'est pas dans le plateau");
+                                    trouve = true;
                                 }
+                            }
+                            if (trouve)
+                            {
+                                Console.WriteLine("Le mot a déjà été trouvé");
                             }
                             else
                             {
-                                Console.WriteLine("Le mot n'est pas dans le dictionnaire");
+                                if (dico.RechDichoRecursif(mot, 0, dico.GetDictionnaire.Length))
+                                {
+                                    if (plateau.MotPresent(mot))
+                                    {
+                                        Console.WriteLine("Le mot est valide");
+                                        joueurs[JoueurEnCours].Add_Mot(mot);
+                                        motsParRound.Add(mot);
+                                        joueurs[JoueurEnCours].Add_Score((byte)plateau.CalculerPoints(mot));
+                                        Console.WriteLine(joueurs[JoueurEnCours].toString());
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Le mot n'est pas dans le plateau");
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Le mot n'est pas dans le dictionnaire");
+                                }
                             }
                         }
                         else
@@ -103,9 +133,17 @@ namespace Projet_A2_S1
                             Console.WriteLine("Le mot n'est pas valide");
                         }
                     }
-                    temps.Stop();
+                    JoueurEnCours += 1;
+
                 }
+                
             }
-        }  
+            Console.WriteLine("Fin du jeu");
+
+            foreach (Joueur joueur in joueurs)
+            {
+                NuageDeMots.GenererNuageDeMots(joueur.Mots, joueur.Nom);
+            }
+        }
     }
 }

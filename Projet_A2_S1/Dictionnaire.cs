@@ -133,8 +133,76 @@ namespace Projet_A2_S1
         public Dictionnaire(string Langue)
         {
             langue = Langue;
-            if (langue == "English") dictionnaire = File.ReadAllText("MotsPossiblesEN.txt").Split(' ');
-            else dictionnaire = File.ReadAllText("MotsPossiblesFR.txt").Split(' ');
+            if (langue == "English") 
+            { 
+                try
+                {
+                    dictionnaire = File.ReadAllText("MotsPossiblesEN.txt").Split(' ');
+                }
+                catch (FileNotFoundException f)
+                {
+                    Console.WriteLine("le fichier n'existe pas " + f.Message);
+                }
+                catch (ArgumentException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (PathTooLongException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (DirectoryNotFoundException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (UnauthorizedAccessException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (NotSupportedException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (IOException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+            }
+            else
+            {
+                try
+                {
+                    dictionnaire = File.ReadAllText("MotsPossiblesFR.txt").Split(' ');
+                }
+                catch (FileNotFoundException f)
+                {
+                    Console.WriteLine("le fichier n'existe pas " + f.Message);
+                }
+                catch (ArgumentException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (PathTooLongException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (DirectoryNotFoundException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (UnauthorizedAccessException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (NotSupportedException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+                catch (IOException f)
+                {
+                    Console.WriteLine("Erreur " + f.Message);
+                }
+            }
             dictionnaire = TriFusion(dictionnaire);
         }
 
