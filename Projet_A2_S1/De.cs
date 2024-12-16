@@ -15,6 +15,7 @@ namespace Projet_A2_S1
         {
             get { return lettre_visible; }
         }
+
         public De(char[] lettres)
         {
             faces = lettres;

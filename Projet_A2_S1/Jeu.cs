@@ -25,7 +25,6 @@ namespace Projet_A2_S1
                         Console.WriteLine("Le mot est présent");
                         motpresent = true;
                     }
-
                 }
                 Console.WriteLine();
             }

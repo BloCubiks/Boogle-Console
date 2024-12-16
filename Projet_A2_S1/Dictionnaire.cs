@@ -9,6 +9,11 @@ namespace Projet_A2_S1
 {
     internal class Dictionnaire
     {
+        /// <summary>
+        /// Tri fusion servant a trier le dictionnaire
+        /// </summary>
+        /// <param name="tab"> dictionnaire</param>
+        /// <returns></returns>
         static string[] TriFusion(string[] tab)
         {
             int n = tab.Length;
@@ -53,6 +58,10 @@ namespace Projet_A2_S1
         private string langue;
         private string[] dictionnaire;
 
+        public string[] GetDictionnaire
+        {
+            get { return dictionnaire; }
+        }
         public Dictionnaire(string Langue)
         {
             langue = Langue;
@@ -61,6 +70,7 @@ namespace Projet_A2_S1
             TriFusion(dictionnaire);
 
         }
+
         public string toString()
         {
             string resultat = "Ce dictionnaire "+langue+" contient : \n";
@@ -105,17 +115,24 @@ namespace Projet_A2_S1
             }
             return resultat;
         }
-        public bool RechDicoRecursif(string mot, int debut, int fin)
+        /// <summary>
+        /// recherche recursive dichotomique d'un mot dans le dictionnaire
+        /// </summary>
+        /// <param name="mot"> mot recherché </param>
+        /// <param name="debut"> variable permettant de reduire la zone de recherche</param>
+        /// <param name="fin"></param>
+        /// <returns></returns>
+        public bool RechDichoRecursif(string mot, int debut, int fin)
         {
             if (debut == fin) return mot == dictionnaire[debut];
             int milieu = (debut + fin) / 2;
             if (mot.CompareTo(dictionnaire[milieu]) < 0)
             {
-                return RechDicoRecursif(mot, debut, milieu);
+                return RechDichoRecursif(mot, debut, milieu);
             }
             else
             {
-                return RechDicoRecursif(mot, milieu + 1, fin);
+                return RechDichoRecursif(mot, milieu + 1, fin);
             }
         }
     }
