@@ -7,7 +7,6 @@ using System.IO;
 
 namespace Projet_A2_S1
 {
-
     internal class Dictionnaire
     {
         static string[] TriFusion(string[] tab)
@@ -92,14 +91,14 @@ namespace Projet_A2_S1
                 }
             }
             resultat += "\n";
-            // ne sait pas pourquoi ca ne marche pas
-            //for (int i=97; i < 123; i++) //lettres a-z
-            //{
-            //    if (nbMotsParLettre.ContainsKey((char)i))
-            //    {
-            //        resultat += $"mots commencant par {(char)i} : {nbMotsParLettre[(char)i]}+=\n";
-            //    }
-            //}
+            /// ne sait pas pourquoi ca ne marche pas
+            ///for (int i=97; i < 123; i++) //lettres a-z
+            ///{
+            ///    if (nbMotsParLettre.ContainsKey((char)i))
+            ///    {
+            ///        resultat += $"mots commencant par {(char)i} : {nbMotsParLettre[(char)i]}+=\n";
+            ///    }
+            ///}
             foreach (KeyValuePair<char, int> entry in nbMotsParLettre)
             {
                 resultat += $"mots commencant par {entry.Key} : {entry.Value}\n";

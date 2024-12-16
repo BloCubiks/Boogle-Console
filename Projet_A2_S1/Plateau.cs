@@ -13,19 +13,23 @@ namespace Projet_A2_S1
     {
         private int taille;
         private int nbDes;
-        private De[] des;
+        private De[,] des;
 
+        public De[,] Des
+        {
+            get { return des; }
+        }
         public Plateau(int Taille)
         {
             taille = Taille;
             nbDes = taille * taille;
-            des = new De[nbDes];
-            // remplissage des des
+            des = new De[taille,taille];
+            ///remplissage des des
             Dictionary<string, int> probaLettre = new Dictionary<string, int>();
             string[] lines = File.ReadAllLines("lettres.txt");
             string[][] infoLettres = new string[26][];
             double n;
-            double coeff = (taille ==4) ? 1 : (taille*6)/100.0; //associe 1 si taille == 4 sinon attribue un coeff d'apparition des lettres
+            double coeff = (taille ==4) ? 1 : (taille*6)/100.0; ///associe 1 si taille == 4 sinon attribue un coeff d'apparition des lettres
             for (int i = 0; i < 26; i++)
             {
                 infoLettres[i] = lines[i].Split(';');
@@ -47,14 +51,16 @@ namespace Projet_A2_S1
                 }
             }
             char[] lettresDe = new char[6];
-            lettres.Count();
-            for (int i = 0; i < nbDes; i++)
+            for (int i = 0; i < taille; i++)
             {
-                for (int j = 0; j < 6; j++)
+                for (int j = 0; j < taille; j++)
                 {
-                    lettresDe[j] = lettres.Pop();
-                }
-                des[i] = new De(lettresDe);
+                    for (int f = 0; f < 6; f++)
+                    {
+                        lettresDe[f] = lettres.Pop();
+                    }
+                    des[i, j] = new De(lettresDe);
+                } 
             }
         }
         public string toString()
@@ -64,11 +70,39 @@ namespace Projet_A2_S1
             {
                 for (int j =0; j < taille; j++)
                 {
-                    plateau += des[i * taille + j].Visible + " ";
+                    plateau += des[i,j].Visible + " ";
                 }
                 plateau += "\n";    
             }
             return plateau;
         }
+        /// <summary>
+        /// Fonction récursive permettant de tester si un mot est formable dans le plateau
+        /// </summary>
+        /// <param name="mot"> mot a chercher dans le plateau</param>
+        /// <param name="i"> ligne d'une lettre dans le plateau</param>
+        /// <param name="j"> colonne d'une lettre dans le plateau</param>
+        /// <param name="dejaVu"> matrice permettant d'eviter de reutiliser la meme lettre</param>
+        /// <param name="indiceMot"> indice de la lettre a rechercher dans le plateau</param>
+        /// <returns> retourne vrai si le mot est formable dans le plateau</returns>
+        public bool Test_Plateau(string mot, int i, int j, bool[,] dejaVu, int indiceMot = 0)
+        {
+            if (i < 0 || i >= taille || j < 0 || j >= taille || dejaVu[i, j] == true) return false; ///permet de ne pas reutiliser la meme lettre ou de ne pas faire d'IndexOutOfRange
+            if (mot.Length == indiceMot) return true;
+            if (mot[indiceMot] == des[i, j].Visible)
+            {
+                dejaVu[i, j] = true;
+                if (Test_Plateau(mot, i - 1, j - 1, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i - 1, j, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i - 1, j + 1, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i, j + 1, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i + 1, j + 1, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i + 1, j, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i + 1, j - 1, dejaVu, indiceMot + 1)) return true;
+                if (Test_Plateau(mot, i, j - 1, dejaVu, indiceMot + 1)) return true;
+                dejaVu[i,j] = false;
+            }
+            return false;
+        }   
     }
 }

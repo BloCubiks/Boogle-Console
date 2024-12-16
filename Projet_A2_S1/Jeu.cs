@@ -10,20 +10,25 @@ namespace Projet_A2_S1
     {
         static void Main(string[] args)
         {
-            //Joueur michel = new Joueur("michel");
-            //michel.Add_Mot("oui");
-            // michel.Add_Mot("noui");
-            //michel.Add_Mot("oui");
-            //Console.WriteLine(michel.toString());
-            //char[] feur = ['A', 'N', 'B', 'C', 'D', 'U'];
-            //De de1 = new De(feur);
-            //Console.WriteLine(de1.toString());
-            ////de1.Lance();
-            //Console.WriteLine(de1.toString());
-            //Dictionnaire dico = new Dictionnaire("English");
-            //Console.WriteLine(dico.toString());
             Plateau plateau = new Plateau(4);
             Console.WriteLine(plateau.toString());
+            bool[,] oui = new bool[4, 4];
+            string mot = Console.ReadLine();
+            bool motpresent = false;
+            for (int i = 0; i < 4; i++)
+            {
+                for (int j = 0; j < 4 &&!motpresent; j++)
+                {
+
+                    if(plateau.Test_Plateau(mot, i, j, oui, 0))
+                    {
+                        Console.WriteLine("Le mot est présent");
+                        motpresent = true;
+                    }
+
+                }
+                Console.WriteLine();
+            }
         }
     }
 }
