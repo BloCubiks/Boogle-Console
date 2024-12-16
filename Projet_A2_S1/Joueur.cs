@@ -12,6 +12,10 @@ namespace Projet_A2_S1
         private byte score;
         private Dictionary<string, int> motsTrouves;
 
+        public string Nom
+        {
+            get { return nom; }
+        }
         public Joueur(string Nom)
         {
             nom = Nom;
@@ -27,6 +31,10 @@ namespace Projet_A2_S1
             }
             return contient;
         }
+        public void Add_Score(byte points)
+        {
+            score += points;
+        }
         public void Add_Mot(string mot)
         {
             if (!Contain(mot))
@@ -41,7 +49,7 @@ namespace Projet_A2_S1
             string mots = "";
             foreach (string key in motsTrouves.Keys)
             {
-                mots += $"{motsTrouves[key]} fois {key} ,";
+                mots += $"{key}: {motsTrouves[key]} fois ,";
             }
             return mots;
         }

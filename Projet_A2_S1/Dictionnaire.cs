@@ -10,6 +10,70 @@ namespace Projet_A2_S1
     internal class Dictionnaire
     {
         /// <summary>
+        /// Tri par sélection
+        /// </summary>
+        /// <param name="tab"></param>
+        static void TriInsertion(string[] tab)
+        {
+            string en_cours;
+
+            for (int i = 1; i < tab.Length; i++)
+            {
+                en_cours = tab[i];
+                for (int j = i; j > 0 && tab[j - 1].CompareTo(en_cours) > 0; j--)
+                {
+                    tab[j] = tab[j - 1];
+                }
+                tab[i] = en_cours;
+            }
+        }
+
+        /// <summary>
+        /// Tri bogo (aléatoire)
+        /// </summary>
+        /// <param name="tab"></param>
+        static void TriBogo(string[] tab)
+        {
+            int i = 0;
+            Random random = new Random();
+            while (!isSorted(tab))
+            {
+                MelangeAleatoire(tab, random);
+                i++;
+                Console.WriteLine("marche pas" + i);
+            }
+        }
+        /// <summary>
+        /// Fonction qui détermine si un tableau de string est trié
+        /// </summary>
+        /// <param name="tab"></param>
+        /// <returns></returns>
+        static bool isSorted(string[] tab)
+        {
+            for (int i = 0; i < tab.Length - 1; i++)
+            {
+                if (tab[i].CompareTo(tab[i + 1]) > 0)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        /// <summary>
+        /// Fonction qui mélange de manière aléatoire
+        /// </summary>
+        /// <param name="tab"></param>
+        /// <param name="random"></param>
+        static void MelangeAleatoire(string[] tab, Random random)
+        {
+            for (int i = tab.Length - 1; i > 0; i--)
+            {
+                int chiffrealeatoire = random.Next(i + 1);
+                (tab[i], tab[chiffrealeatoire]) = (tab[chiffrealeatoire], tab[i]);
+            }
+        }
+
+        /// <summary>
         /// Tri fusion servant a trier le dictionnaire
         /// </summary>
         /// <param name="tab"> dictionnaire</param>
@@ -36,7 +100,7 @@ namespace Projet_A2_S1
             int i = 0, j = 0, k = 0;
             while (i < a && j < b)
             {
-                if (A[i].CompareTo(B[j])>0)
+                if (A[i].CompareTo(B[j]) < 0)
                 {
                     result[k++] = A[i++];
                 }
@@ -67,8 +131,7 @@ namespace Projet_A2_S1
             langue = Langue;
             if (langue == "English") dictionnaire = File.ReadAllText("MotsPossiblesEN.txt").Split(' ');
             else dictionnaire = File.ReadAllText("MotsPossiblesFR.txt").Split(' ');
-            TriFusion(dictionnaire);
-
+            dictionnaire = TriFusion(dictionnaire);
         }
 
         public string toString()
@@ -129,6 +192,10 @@ namespace Projet_A2_S1
             if (mot.CompareTo(dictionnaire[milieu]) < 0)
             {
                 return RechDichoRecursif(mot, debut, milieu);
+            }
+            else if (dictionnaire[milieu] == mot)
+            {
+                return true;
             }
             else
             {

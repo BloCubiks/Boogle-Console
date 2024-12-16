@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,24 +11,93 @@ namespace Projet_A2_S1
     {
         static void Main(string[] args)
         {
-            Plateau plateau = new Plateau(4);
-            Console.WriteLine(plateau.toString());
-            bool[,] oui = new bool[4, 4];
-            string mot = Console.ReadLine();
-            bool motpresent = false;
-            for (int i = 0; i < 4; i++)
+            ///Initialisation du jeu
+            Dictionnaire dico;
+            Console.WriteLine("Bienvenue dans le jeu du Boggle");
+            string langue = "";
+            while (langue != "FR" && langue != "EN")
             {
-                for (int j = 0; j < 4 &&!motpresent; j++)
-                {
+                Console.WriteLine("Quelle langue du dictionnaire que vous souhaitez utiliser (français ou anglais)");
+                Console.WriteLine("Saisissez FR ou EN");
+                langue = Console.ReadLine();
+            }
+            if (langue == "EN")
+            {
+                dico = new Dictionnaire("English");
+            }
+            else
+            {
+                dico = new Dictionnaire("Francais");
+            }
+            int nbToursParJoueur = -1;
+            while (nbToursParJoueur < 1)
+            {
+                Console.WriteLine("Saisissez le nombre de tours par joueur");
+                nbToursParJoueur = int.Parse(Console.ReadLine());
+            }
+            int nbJoueurs = -1;
+            while (nbJoueurs < 1)
+            {
+                Console.WriteLine("Saisissez le nombre de joueurs");
+                nbJoueurs = int.Parse(Console.ReadLine());
+            }
+            Joueur[] joueurs = new Joueur[nbJoueurs];
+            for (int i = 0; i < nbJoueurs; i++)
+            {
+                Console.WriteLine("Saisissez le nom du joueur");
+                joueurs[i] = new Joueur(Console.ReadLine());
+            }
+            int taille = 3;
+            while (taille < 4)
+            {
+                Console.WriteLine("Saisissez la taille du plateau (4 minimum)");
+                taille = int.Parse(Console.ReadLine());
+            }
+            Plateau plateau = new Plateau(taille);
+            int tour = 1;
+            bool[,] dejaVu;
+            string mot;
+            bool motpresent;
 
-                    if(plateau.Test_Plateau(mot, i, j, oui, 0))
+            ///Déroulement du jeu
+            while (tour <= nbToursParJoueur)
+            {
+                Console.WriteLine("TOUR " + tour);
+                ///Tour joueur
+                for (int i = 0; i < nbJoueurs; i++)
+                {
+                    Console.WriteLine("C'est au tour de " + joueurs[i].Nom);
+                    plateau.ShufflePlateau();
+                    Console.WriteLine(plateau.toString());
+                    mot = Console.ReadLine().ToUpper();
+                    if (mot.Length > 1)
                     {
-                        Console.WriteLine("Le mot est présent");
-                        motpresent = true;
+                        if (dico.RechDichoRecursif(mot, 0, dico.GetDictionnaire.Length))
+                        {
+                            if (plateau.MotPresent(mot))
+                            {
+                                Console.WriteLine("Le mot est valide");
+                                joueurs[i].Add_Mot(mot);
+
+                                joueurs[i].Add_Score((byte)plateau.CalculerPoints(mot));
+                                Console.WriteLine(joueurs[i].toString());
+                            }
+                            else
+                            {
+                                Console.WriteLine("Le mot n'est pas dans le plateau");
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("Le mot n'est pas dans le dictionnaire");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Le mot n'est pas valide");
                     }
                 }
-                Console.WriteLine();
             }
-        }
+        }  
     }
 }

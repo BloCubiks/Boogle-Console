@@ -8,7 +8,7 @@ namespace Projet_A2_S1
 {
     internal class De
     {
-        private char[] faces = new char[6];
+        private char[] faces;
         private char lettre_visible;
 
         public char Visible
@@ -18,7 +18,11 @@ namespace Projet_A2_S1
 
         public De(char[] lettres)
         {
-            faces = lettres;
+            faces = new char[6];
+            for (int i = 0; i < 6; i++)
+            {
+                faces[i] = lettres[i];
+            }
             lettre_visible = lettres[0];
         }
         Random aleatoire = new Random();

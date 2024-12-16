@@ -14,25 +14,32 @@ namespace Projet_A2_S1
         private int taille;
         private int nbDes;
         private De[,] des;
+        private Dictionary<char, int> pointsParLettre;
 
         public De[,] Des
         {
             get { return des; }
+        }
+        public Dictionary<char, int> Points
+        {
+            get { return pointsParLettre; }
         }
         public Plateau(int Taille)
         {
             taille = Taille;
             nbDes = taille * taille;
             des = new De[taille,taille];
+            pointsParLettre = new Dictionary<char, int>();
             ///remplissage des des
             Dictionary<string, int> probaLettre = new Dictionary<string, int>();
             string[] lines = File.ReadAllLines("lettres.txt");
             string[][] infoLettres = new string[26][];
             double n;
-            double coeff = (taille ==4) ? 1 : (taille*6)/100.0; ///associe 1 si taille == 4 sinon attribue un coeff d'apparition des lettres
+            double coeff = (taille ==4) ? 1 : (taille*taille*6)/100.0; ///associe 1 si taille == 4 sinon attribue un coeff d'apparition des lettres
             for (int i = 0; i < 26; i++)
             {
                 infoLettres[i] = lines[i].Split(';');
+                pointsParLettre.Add(char.Parse(infoLettres[i][0]), int.Parse(infoLettres[i][1]));
                 n = double.Parse(infoLettres[i][2]);
                 n = n * coeff;
                 n = Math.Ceiling(n);
@@ -104,5 +111,40 @@ namespace Projet_A2_S1
             }
             return false;
         }   
+        public bool MotPresent(string mot)
+        {
+            bool[,] dejaVu = new bool[taille, taille];
+            bool motpresent = false;
+            for (int j = 0; j < taille; j++)
+            {
+                for (int k = 0; k < taille && !motpresent; k++)
+                {
+                    if (Test_Plateau(mot, j, k, dejaVu, 0))
+                    {
+                        motpresent = true;
+                    }
+                }
+            }
+            return motpresent; 
+        }
+        public void ShufflePlateau()
+        {
+            for (int i = 0;i < taille; i++)
+            {
+                for (int j = 0; j < taille; j++)
+                {
+                    des[i, j].Lance();
+                }
+            }
+        }
+        public int CalculerPoints(string mot)
+        {
+            int points = 0;
+            foreach (char lettre in mot)
+            {
+                points += pointsParLettre[lettre];
+            }
+            return points;
+        }
     }
 }
