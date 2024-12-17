@@ -63,6 +63,7 @@ namespace Projet_A2_S1
             string mot;
             int compteurTour = 0;
             bool trouve;
+            int nbguess;
             List<string> motsParRound;
             Console.WriteLine(" ____    __ _           _         _           _            \r\n|  _ \\  /_/| |__  _   _| |_    __| |_   _    (_) ___ _   _ \r\n| | | |/ _ \\ '_ \\| | | | __|  / _` | | | |   | |/ _ \\ | | |\r\n| |_| |  __/ |_) | |_| | |_  | (_| | |_| |   | |  __/ |_| |\r\n|____/ \\___|_.__/ \\__,_|\\__|  \\__,_|\\__,_|  _/ |\\___|\\__,_|\r\n                                           |__/            ");
             ///Déroulement du jeu
@@ -72,7 +73,7 @@ namespace Projet_A2_S1
                 compteurTour++;
                 while (JoueurEnCours < nbJoueurs)
                 {
-                    
+                    nbguess = 0;
                     motsParRound = new List<string>();
                     Console.WriteLine("TOUR " + compteurTour);
                     Console.WriteLine("C'est au tour de " + joueurs[JoueurEnCours].Nom);
@@ -83,7 +84,8 @@ namespace Projet_A2_S1
                     Console.WriteLine("Décompte de 60 secondes :");
                     while (finTour > DateTime.Now)
                     {
-                        
+                        nbguess += 1;
+                        if (nbguess%2 == 0) Console.WriteLine(plateau.toString());
                         Console.WriteLine("\nTemps restant : " + (finTour - DateTime.Now) + " secondes");
                         
                         mot = Console.ReadLine().ToUpper();
@@ -141,7 +143,6 @@ namespace Projet_A2_S1
                 
             }
             Console.WriteLine(" _____ _             _           _              _ \r\n|  ___(_)_ __     __| |_   _    (_) ___ _   _  | |\r\n| |_  | | '_ \\   / _` | | | |   | |/ _ \\ | | | | |\r\n|  _| | | | | | | (_| | |_| |   | |  __/ |_| | |_|\r\n|_|   |_|_| |_|  \\__,_|\\__,_|  _/ |\\___|\\__,_| (_)\r\n                              |__/              ");
-
             foreach (Joueur joueur in joueurs)
             {
                 NuageDeMots.GenererNuageDeMots(joueur.Mots, joueur.Nom);
