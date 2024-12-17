@@ -25,7 +25,7 @@ namespace Projet_A2_S1
             {
                 Console.WriteLine("Quelle langue du dictionnaire que vous souhaitez utiliser (français ou anglais)");
                 Console.WriteLine("Saisissez FR ou EN");
-                langue = Console.ReadLine();
+                langue = Console.ReadLine().ToUpper();
             }
             if (langue == "EN")
             {
@@ -84,7 +84,6 @@ namespace Projet_A2_S1
                     Console.WriteLine("Décompte de 60 secondes :");
                     while (finTour > DateTime.Now)
                     {
-                        nbguess += 1;
                         if (nbguess%2 == 0) Console.WriteLine(plateau.toString());
                         Console.WriteLine("\nTemps restant : " + (finTour - DateTime.Now) + " secondes");
                         
@@ -136,6 +135,7 @@ namespace Projet_A2_S1
                         {
                             Console.WriteLine("Le mot n'est pas valide");
                         }
+                        nbguess += 1;
                     }
                     JoueurEnCours += 1;
                     Passer();
