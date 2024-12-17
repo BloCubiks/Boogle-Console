@@ -6,6 +6,11 @@ using System.Drawing.Imaging;
 namespace Projet_A2_S1 { 
     class NuageDeMots
     {
+        /// <summary>
+        /// Fonction qui genere un nuage de mot, FAIT PAR IA
+        /// </summary>
+        /// <param name="mots"> mots trouvés</param>
+        /// <param name="nomJoueur">nom du joueur</param>
         public static void GenererNuageDeMots(Dictionary<string, int> mots, string nomJoueur)
         {
             int largeur = 800;

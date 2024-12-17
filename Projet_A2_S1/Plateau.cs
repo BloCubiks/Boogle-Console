@@ -24,6 +24,11 @@ namespace Projet_A2_S1
         {
             get { return pointsParLettre; }
         }
+        /// <summary>
+        /// Fonction permettant de mélanger aleatoirement un tableau de char
+        /// </summary>
+        /// <param name="tab"></param>
+        /// <param name="random"></param>
         public static void MelangeAleatoire(char[] tab, Random random)
         {
             for (int i = tab.Length - 1; i > 0; i--)
@@ -60,6 +65,7 @@ namespace Projet_A2_S1
                 char[] lettres = new char[nbDes*6];
                 int random;
                 int index = 0;
+                ///reparti aleatoirement les lettres dans un tableau
                 while (index < 6 * nbDes)
                 {
                     random = rand.Next(26);
@@ -70,7 +76,10 @@ namespace Projet_A2_S1
                         index++;
                     }
                 }
+                ///melange du tableau
                 MelangeAleatoire(lettres, rand);
+
+                ///attribution des lettres aux des
                 char[] lettresDe = new char[6];
                 int k = 0;
                 for (int i = 0; i < taille; i++)
@@ -115,7 +124,10 @@ namespace Projet_A2_S1
                 Console.WriteLine("Erreur " + f.Message);
             }
         }
-            
+        /// <summary>
+        /// methode permettant d'afficher le plateau
+        /// </summary>
+        /// <returns> string contenant les cases du plateau</returns>
         public string toString()
         {
             string plateau = "";
@@ -156,7 +168,12 @@ namespace Projet_A2_S1
                 dejaVu[i,j] = false;
             }
             return false;
-        }   
+        }
+        /// <summary>
+        /// Methode booléenne verifiant si un mot est present dans le plateau
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <returns></returns>
         public bool MotPresent(string mot)
         {
             bool[,] dejaVu = new bool[taille, taille];
@@ -173,6 +190,9 @@ namespace Projet_A2_S1
             }
             return motpresent; 
         }
+        /// <summary>
+        /// Methode permettant de relancer tous les dés d'un plateau
+        /// </summary>
         public void ShufflePlateau()
         {
             for (int i = 0;i < taille; i++)
@@ -183,6 +203,11 @@ namespace Projet_A2_S1
                 }
             }
         }
+        /// <summary>
+        /// Methode Permettant de calculer les points d'un mot a partir des lettres intialisés dans le constructeur de plateau
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <returns></returns>
         public int CalculerPoints(string mot)
         {
             int points = 0;

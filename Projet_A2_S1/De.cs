@@ -17,6 +17,9 @@ namespace Projet_A2_S1
             get { return lettre_visible; }
         }
 
+        /// <summary>
+        /// constructeur d'un Dé en fonction d'un tableau de 6 charactères
+        /// </summary>
         public De(char[] lettres)
         {
             faces = new char[6];

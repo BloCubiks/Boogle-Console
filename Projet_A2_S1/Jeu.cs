@@ -10,6 +10,9 @@ namespace Projet_A2_S1
 {
     internal class Jeu
     {
+        /// <summary>
+        /// Methode qui permet de mettre en pause le jeu
+        /// </summary>
         static void Passer()
         {
             Console.WriteLine("Appuyez sur une Entrée pour continuer");
@@ -19,12 +22,12 @@ namespace Projet_A2_S1
         {
             ///Initialisation du jeu
             Dictionnaire dico;
-            Console.WriteLine("Bienvenue dans le jeu du Boggle");
+            Console.WriteLine("/================================================================================\\\r\n||                                                                              ||\r\n||            ███████████                             ████                      ||\r\n||    ███ ███░░███░░░░░███                           ░░███             ███ ███  ||\r\n||  ███░███░  ░███    ░███  ██████   ██████   ███████ ░███   ██████  ███░███░   ||\r\n|| ░░░ ░░░    ░██████████  ███░░███ ███░░███ ███░░███ ░███  ███░░███░░░ ░░░     ||\r\n||            ░███░░░░░███░███ ░███░███ ░███░███ ░███ ░███ ░███████             ||\r\n||            ░███    ░███░███ ░███░███ ░███░███ ░███ ░███ ░███░░░              ||\r\n||            ███████████ ░░██████ ░░██████ ░░███████ █████░░██████             ||\r\n||           ░░░░░░░░░░░   ░░░░░░   ░░░░░░   ░░░░░███░░░░░  ░░░░░░              ||\r\n||                                           ███ ░███                           ||\r\n||                                          ░░██████                            ||\r\n||                                           ░░░░░░                             ||\r\n||                                                                              ||\r\n\\================================================================================/");
             string langue = "";
             while (langue != "FR" && langue != "EN")
             {
-                Console.WriteLine("Quelle langue du dictionnaire que vous souhaitez utiliser (français ou anglais)");
-                Console.WriteLine("Saisissez FR ou EN");
+                Console.WriteLine("Quelle langue du dictionnaire que vous souhaitez utiliser (français ou anglais) ?");
+                Console.WriteLine("Saisissez FR ou EN :");
                 langue = Console.ReadLine().ToUpper();
             }
             if (langue == "EN")
@@ -35,65 +38,82 @@ namespace Projet_A2_S1
             {
                 dico = new Dictionnaire("Francais");
             }
+
+
             int nbToursParJoueur = -1;
             while (nbToursParJoueur < 1)
             {
-                Console.WriteLine("Saisissez le nombre de tours par joueur");
+                Console.WriteLine("Saisissez le nombre de tours par joueur :");
                 int.TryParse(Console.ReadLine(), out nbToursParJoueur);
             }
+
+
             int nbJoueurs = -1;
             while (nbJoueurs < 1)
             {
-                Console.WriteLine("Saisissez le nombre de joueurs");
+                Console.WriteLine("Saisissez le nombre de joueurs :");
                 int.TryParse(Console.ReadLine(), out nbJoueurs);
             }
+
+
             Joueur[] joueurs = new Joueur[nbJoueurs];
             for (int i = 0; i < nbJoueurs; i++)
             {
-                Console.WriteLine("Saisissez le nom du joueur");
+                Console.WriteLine("Saisissez le nom du joueur "+(i+1)+" :");
                 joueurs[i] = new Joueur(Console.ReadLine());
             }
+
+
             int taille = 3;
             while (taille < 4)
             {
-                Console.WriteLine("Saisissez la taille du plateau (4 minimum)");
+                Console.WriteLine("Saisissez la taille du plateau (4 minimum) :");
                 if (!int.TryParse(Console.ReadLine(), out taille)) Console.WriteLine("mauvaise saisie");
             }
+
+
+            ///Initialisation du plateau et des variables
             Plateau plateau = new Plateau(taille);
             string mot;
             int compteurTour = 0;
             bool trouve;
             int nbguess;
             List<string> motsParRound;
+
+
             Console.WriteLine(" ____    __ _           _         _           _            \r\n|  _ \\  /_/| |__  _   _| |_    __| |_   _    (_) ___ _   _ \r\n| | | |/ _ \\ '_ \\| | | | __|  / _` | | | |   | |/ _ \\ | | |\r\n| |_| |  __/ |_) | |_| | |_  | (_| | |_| |   | |  __/ |_| |\r\n|____/ \\___|_.__/ \\__,_|\\__|  \\__,_|\\__,_|  _/ |\\___|\\__,_|\r\n                                           |__/            ");
             ///Déroulement du jeu
             while (compteurTour < nbToursParJoueur)
             {
                 int JoueurEnCours = 0;
                 compteurTour++;
+                plateau.ShufflePlateau();
+                ///Tour de chaque joueur
                 while (JoueurEnCours < nbJoueurs)
                 {
-                    nbguess = 1;
+                    nbguess = 0;
                     motsParRound = new List<string>();
                     Console.WriteLine("TOUR " + compteurTour);
                     Console.WriteLine("C'est au tour de " + joueurs[JoueurEnCours].Nom);
                     plateau.ShufflePlateau();
-                    Console.WriteLine(plateau.toString());
-                    ///Tour joueur
                     DateTime finTour = DateTime.Now.AddSeconds(60);
                     Console.WriteLine("Décompte de 60 secondes :");
+
+
+                    ///boucle de jeu de 60 secondes
                     while (finTour > DateTime.Now)
                     {
                         if (nbguess % 2 == 0) Console.WriteLine(plateau.toString());
-                        Console.WriteLine("\nTemps restant : " + (finTour - DateTime.Now) + " secondes");
+                        Console.WriteLine("Temps restant : " + (finTour - DateTime.Now) + " secondes");
 
                         mot = Console.ReadLine().ToUpper();
-                        if (DateTime.Now > finTour)
+                        if (DateTime.Now > finTour) ///verifie si les 60 secondes sont écoulées ?
                         {
                             Console.WriteLine("Temps écoulé");
                             break;
                         }
 
+                        ///verification de la validité du mot
                         else if (mot.Length > 1)
                         {
                             trouve = false;
@@ -136,13 +156,14 @@ namespace Projet_A2_S1
                             Console.WriteLine("Le mot n'est pas valide");
                         }
                         nbguess += 1;
+                        Console.WriteLine("\n");
                     }
                     JoueurEnCours += 1;
                     Passer();
                 }
             }
             int max = 0;
-            ///max des scores
+            ///gagnant
             for (int i = 1; i < joueurs.Length; i++)
             {
                 if (joueurs[max].Score < joueurs[i].Score) max = i;

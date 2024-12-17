@@ -92,6 +92,12 @@ namespace Projet_A2_S1
             Array.Copy(tab, mid, right, 0, n - mid);
             return Fusion(TriFusion(left), TriFusion(right));
         }
+        /// <summary>
+        /// fusion de 2 tableaux triés
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <returns>tableau trié composé d'une valeur des 2 tableaux</returns>
         static string[] Fusion(string[] A, string[] B)
         {
             int a = A.Length;
@@ -127,85 +133,56 @@ namespace Projet_A2_S1
             get { return dictionnaire; }
         }
         /// <summary>
-        /// constructeur de la classe Dictionnaire
+        /// constructeur de la classe Dictionnaire qui ouvre le fichier correspondant à la langue choisie et qui le trie
         /// </summary>
         /// <param name="Langue"></param>
         public Dictionnaire(string Langue)
         {
             langue = Langue;
-            if (langue == "English") 
-            { 
-                try
+            try
+            {
+                if (langue == "English")
                 {
                     dictionnaire = File.ReadAllText("MotsPossiblesEN.txt").Split(' ');
                 }
-                catch (FileNotFoundException f)
-                {
-                    Console.WriteLine("le fichier n'existe pas " + f.Message);
-                }
-                catch (ArgumentException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (PathTooLongException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (DirectoryNotFoundException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (UnauthorizedAccessException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (NotSupportedException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (IOException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-            }
-            else
-            {
-                try
+                else
                 {
                     dictionnaire = File.ReadAllText("MotsPossiblesFR.txt").Split(' ');
                 }
-                catch (FileNotFoundException f)
-                {
-                    Console.WriteLine("le fichier n'existe pas " + f.Message);
-                }
-                catch (ArgumentException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (PathTooLongException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (DirectoryNotFoundException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (UnauthorizedAccessException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (NotSupportedException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
-                catch (IOException f)
-                {
-                    Console.WriteLine("Erreur " + f.Message);
-                }
+            }
+            catch (FileNotFoundException f)
+            {
+                Console.WriteLine("le fichier n'existe pas " + f.Message);
+            }
+            catch (ArgumentException f)
+            {
+                Console.WriteLine("Erreur " + f.Message);
+            }
+            catch (PathTooLongException f)
+            {
+                Console.WriteLine("Erreur " + f.Message);
+            }
+            catch (DirectoryNotFoundException f)
+            {
+                Console.WriteLine("Erreur " + f.Message);
+            }
+            catch (UnauthorizedAccessException f)
+            {
+                Console.WriteLine("Erreur " + f.Message);
+            }
+            catch (NotSupportedException f)
+            {
+                Console.WriteLine("Erreur " + f.Message);
+            }
+            catch (IOException f)
+            {
+                Console.WriteLine("Erreur " + f.Message);
             }
             dictionnaire = TriFusion(dictionnaire);
         }
-
+        /// <summary>
+        /// Methode renvoyant les informations concernant le dictionnaire (nombre de mots de chaque taille, nombre de mots commençant par chaque lettre)
+        /// </summary>
         public string toString()
         {
             string resultat = "Ce dictionnaire "+langue+" contient : \n";
@@ -236,14 +213,6 @@ namespace Projet_A2_S1
                 }
             }
             resultat += "\n";
-            /// ne sait pas pourquoi ca ne marche pas
-            ///for (int i=97; i < 123; i++) //lettres a-z
-            ///{
-            ///    if (nbMotsParLettre.ContainsKey((char)i))
-            ///    {
-            ///        resultat += $"mots commencant par {(char)i} : {nbMotsParLettre[(char)i]}+=\n";
-            ///    }
-            ///}
             foreach (KeyValuePair<char, int> entry in nbMotsParLettre)
             {
                 resultat += $"mots commencant par {entry.Key} : {entry.Value}\n";

@@ -24,12 +24,21 @@ namespace Projet_A2_S1
         {
             get { return motsTrouves; }
         }
+        /// <summary>
+        /// Constructeur du joueur qui prend en parametre son nom
+        /// </summary>
+        /// <param name="Nom"></param>
         public Joueur(string Nom)
         {
             nom = Nom;
             score = 0;
             motsTrouves = new Dictionary<string, int>(); ;
         }
+        /// <summary>
+        /// verifie si un mot appartient aux mots trouvés par le joueur
+        /// </summary>
+        /// <param name="mot"></param>
+        /// <returns></returns>
         public bool Contain(string mot)
         {
             bool contient = false;
@@ -39,10 +48,18 @@ namespace Projet_A2_S1
             }
             return contient;
         }
+        /// <summary>
+        /// Ajoute des points au score du joueur
+        /// </summary>
+        /// <param name="points"></param>
         public void Add_Score(byte points)
         {
             score += points;
         }
+        /// <summary>
+        /// ajoute un mot aux mots trouvés par le joueur
+        /// </summary>
+        /// <param name="mot"></param>
         public void Add_Mot(string mot)
         {
             if (!Contain(mot))
@@ -51,7 +68,10 @@ namespace Projet_A2_S1
             }
             else motsTrouves[mot]++;
         }
-
+        /// <summary>
+        /// retourne les mots trouvés par le joueur
+        /// </summary>
+        /// <returns> string contenant tous les mots du joueur</returns>
         public string MotsJoueur()
         {
             string mots = "";
@@ -63,7 +83,7 @@ namespace Projet_A2_S1
         }
         public string toString()
         {
-            return $"Joueur : {nom}\nScore : {score}\nMots trouvés : {MotsJoueur()}";
+            return $"Joueur : {nom}\n   Score : {score}\n   Mots trouvés : {MotsJoueur()}";
         }
     }
 }
