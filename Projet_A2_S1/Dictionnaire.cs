@@ -10,10 +10,10 @@ namespace Projet_A2_S1
     internal class Dictionnaire
     {
         /// <summary>
-        /// Tri par sélection
+        /// Tri par insertion
         /// </summary>
         /// <param name="tab"></param>
-        static void TriInsertion(string[] tab)
+        static string[] TriInsertion(string[] tab)
         {
             string en_cours;
 
@@ -26,22 +26,21 @@ namespace Projet_A2_S1
                 }
                 tab[i] = en_cours;
             }
+            return tab;
         }
 
         /// <summary>
         /// Tri bogo (aléatoire)
         /// </summary>
         /// <param name="tab"></param>
-        static void TriBogo(string[] tab)
+        static string[] TriBogo(string[] tab)
         {
-            int i = 0;
             Random random = new Random();
             while (!isSorted(tab))
             {
                 MelangeAleatoire(tab, random);
-                i++;
-                Console.WriteLine("marche pas" + i);
             }
+            return tab;
         }
         /// <summary>
         /// Fonction qui détermine si un tableau de string est trié
