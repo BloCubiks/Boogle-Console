@@ -10,6 +10,7 @@ namespace Projet_A2_S1
     {
         private char[] faces;
         private char lettre_visible;
+        Random aleatoire = new Random();
 
         public char Visible
         {
@@ -23,9 +24,9 @@ namespace Projet_A2_S1
             {
                 faces[i] = lettres[i];
             }
-            lettre_visible = lettres[0];
+            lettre_visible = lettres[aleatoire.Next(0, 6)];
         }
-        Random aleatoire = new Random();
+        
         /// <summary>
         /// attribue une valeur aleatoire parmis les faces à la lettre visible
         /// </summary>

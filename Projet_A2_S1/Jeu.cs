@@ -72,18 +72,20 @@ namespace Projet_A2_S1
                 compteurTour++;
                 while (JoueurEnCours < nbJoueurs)
                 {
-                    Passer();
+                    
                     motsParRound = new List<string>();
                     Console.WriteLine("TOUR " + compteurTour);
                     Console.WriteLine("C'est au tour de " + joueurs[JoueurEnCours].Nom);
                     plateau.ShufflePlateau();
+                    Console.WriteLine(plateau.toString());
                     ///Tour joueur
                     DateTime finTour = DateTime.Now.AddSeconds(60);
                     Console.WriteLine("Décompte de 60 secondes :");
                     while (finTour > DateTime.Now)
                     {
-                        Console.WriteLine("Temps restant : " + (finTour - DateTime.Now) + " secondes");
-                        Console.WriteLine(plateau.toString());
+                        
+                        Console.WriteLine("\nTemps restant : " + (finTour - DateTime.Now) + " secondes");
+                        
                         mot = Console.ReadLine().ToUpper();
                         if (DateTime.Now > finTour)
                         {
@@ -134,11 +136,11 @@ namespace Projet_A2_S1
                         }
                     }
                     JoueurEnCours += 1;
-
+                    Passer();
                 }
                 
             }
-            Console.WriteLine("Fin du jeu");
+            Console.WriteLine(" _____ _             _           _              _ \r\n|  ___(_)_ __     __| |_   _    (_) ___ _   _  | |\r\n| |_  | | '_ \\   / _` | | | |   | |/ _ \\ | | | | |\r\n|  _| | | | | | | (_| | |_| |   | |  __/ |_| | |_|\r\n|_|   |_|_| |_|  \\__,_|\\__,_|  _/ |\\___|\\__,_| (_)\r\n                              |__/              ");
 
             foreach (Joueur joueur in joueurs)
             {

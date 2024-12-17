@@ -12,38 +12,23 @@ namespace Projet_A2_S1 {
             int hauteur = 600;
             Bitmap bitmap = new Bitmap(largeur, hauteur);
             Graphics graphics = Graphics.FromImage(bitmap);
-
-            // Fond blanc
             graphics.Clear(Color.White);
-
             Random random = new Random();
             List<Rectangle> zonesUtilisees = new List<Rectangle>();
-
             Point centre = new Point(largeur / 2, hauteur / 2);
-
-            // Trier les mots par fréquence (décroissante)
             var motsTries = new List<KeyValuePair<string, int>>(mots);
             motsTries.Sort((a, b) => b.Value.CompareTo(a.Value));
-
             foreach (var mot in motsTries)
             {
-                int taillePolice = 15 + mot.Value * 8; // Taille en fonction de la fréquence
+                int taillePolice = 12 + mot.Value * 10; 
                 Font font = new Font("Arial", taillePolice, FontStyle.Bold);
-
-                // Couleur aléatoire
                 Color couleur = Color.FromArgb(random.Next(50, 255), random.Next(50, 255), random.Next(50, 255));
                 Brush brush = new SolidBrush(couleur);
-
-                // Placement en spirale à partir du centre
                 Point position = TrouverPositionSansCollision(mot.Key, font, graphics, centre, zonesUtilisees);
-
-                // Dessiner le mot
                 graphics.DrawString(mot.Key, font, brush, position);
                 SizeF tailleMot = graphics.MeasureString(mot.Key, font);
                 zonesUtilisees.Add(new Rectangle(position.X, position.Y, (int)tailleMot.Width, (int)tailleMot.Height));
             }
-
-            // Sauvegarder l'image
             bitmap.Save($"{nomJoueur}_nuage_de_mots.png", ImageFormat.Png);
             Console.WriteLine($"Nuage de mots généré pour {nomJoueur} : {$"{nomJoueur}_nuage_de_mots.png"}");
             string fichierSortie = $"{nomJoueur}_NuageDeMots.png";
@@ -55,10 +40,10 @@ namespace Projet_A2_S1 {
 
         public static Point TrouverPositionSansCollision(string mot, Font font, Graphics graphics, Point centre, List<Rectangle> zonesUtilisees)
         {
-            double angle = 0;       // Angle pour la spirale
-            double rayon = 0;       // Rayon croissant de la spirale
-            double pas = 5;         // Pas d'incrémentation pour le rayon
-            double facteurAngle = 0.1; // Facteur pour ajuster l'angle de la spirale
+            double angle = 0;       
+            double rayon = 0;       
+            double pas = 5;         
+            double facteurAngle = 0.1; 
 
             SizeF tailleMot = graphics.MeasureString(mot, font);
 
@@ -73,8 +58,6 @@ namespace Projet_A2_S1 {
                 {
                     return new Point(x, y);
                 }
-
-                // Progression dans la spirale
                 angle += facteurAngle;
                 rayon += pas * facteurAngle;
             }
