@@ -20,7 +20,7 @@ namespace Projet_A2_S1 {
             motsTries.Sort((a, b) => b.Value.CompareTo(a.Value));
             foreach (var mot in motsTries)
             {
-                int taillePolice = 12 + mot.Value * 10; 
+                int taillePolice = 5 + mot.Value * 10; 
                 Font font = new Font("Arial", taillePolice, FontStyle.Bold);
                 Color couleur = Color.FromArgb(random.Next(50, 255), random.Next(50, 255), random.Next(50, 255));
                 Brush brush = new SolidBrush(couleur);

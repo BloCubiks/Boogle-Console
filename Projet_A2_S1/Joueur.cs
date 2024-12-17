@@ -12,6 +12,10 @@ namespace Projet_A2_S1
         private byte score;
         private Dictionary<string, int> motsTrouves;
 
+        public byte Score
+        {
+            get { return score; }
+        }   
         public string Nom
         {
             get { return nom; }

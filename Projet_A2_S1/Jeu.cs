@@ -73,7 +73,7 @@ namespace Projet_A2_S1
                 compteurTour++;
                 while (JoueurEnCours < nbJoueurs)
                 {
-                    nbguess = 0;
+                    nbguess = 1;
                     motsParRound = new List<string>();
                     Console.WriteLine("TOUR " + compteurTour);
                     Console.WriteLine("C'est au tour de " + joueurs[JoueurEnCours].Nom);
@@ -84,9 +84,9 @@ namespace Projet_A2_S1
                     Console.WriteLine("Décompte de 60 secondes :");
                     while (finTour > DateTime.Now)
                     {
-                        if (nbguess%2 == 0) Console.WriteLine(plateau.toString());
+                        if (nbguess % 2 == 0) Console.WriteLine(plateau.toString());
                         Console.WriteLine("\nTemps restant : " + (finTour - DateTime.Now) + " secondes");
-                        
+
                         mot = Console.ReadLine().ToUpper();
                         if (DateTime.Now > finTour)
                         {
@@ -140,8 +140,14 @@ namespace Projet_A2_S1
                     JoueurEnCours += 1;
                     Passer();
                 }
-                
             }
+            int max = 0;
+            ///max des scores
+            for (int i = 1; i < joueurs.Length; i++)
+            {
+                if (joueurs[max].Score < joueurs[i].Score) max = i;
+            }
+            Console.WriteLine("Le gagnant est " + joueurs[max].Nom + " avec un score de " + joueurs[max].Score);
             Console.WriteLine(" _____ _             _           _              _ \r\n|  ___(_)_ __     __| |_   _    (_) ___ _   _  | |\r\n| |_  | | '_ \\   / _` | | | |   | |/ _ \\ | | | | |\r\n|  _| | | | | | | (_| | |_| |   | |  __/ |_| | |_|\r\n|_|   |_|_| |_|  \\__,_|\\__,_|  _/ |\\___|\\__,_| (_)\r\n                              |__/              ");
             foreach (Joueur joueur in joueurs)
             {

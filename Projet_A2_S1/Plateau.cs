@@ -24,6 +24,15 @@ namespace Projet_A2_S1
         {
             get { return pointsParLettre; }
         }
+        public static void MelangeAleatoire(char[] tab, Random random)
+        {
+            for (int i = tab.Length - 1; i > 0; i--)
+            {
+                int chiffrealeatoire = random.Next(i + 1);
+                (tab[i], tab[chiffrealeatoire]) = (tab[chiffrealeatoire], tab[i]);
+            }
+        }
+    
         public Plateau(int Taille)
         {
             taille = Taille;
@@ -48,25 +57,30 @@ namespace Projet_A2_S1
                     infoLettres[i][2] = n.ToString();
                 }
                 Random rand = new Random();
-                Queue<char> lettres = new Queue<char>();
+                char[] lettres = new char[nbDes*6];
                 int random;
-                while (lettres.Count() < 6 * nbDes)
+                int index = 0;
+                while (index < 6 * nbDes)
                 {
                     random = rand.Next(26);
                     if (infoLettres[random][2] != "0")
                     {
-                        lettres.Enqueue(char.Parse(infoLettres[random][0]));
+                        lettres[index]=(char.Parse(infoLettres[random][0]));
                         infoLettres[random][2] = (int.Parse(infoLettres[random][2]) - 1).ToString();
+                        index++;
                     }
                 }
+                MelangeAleatoire(lettres, rand);
                 char[] lettresDe = new char[6];
+                int k = 0;
                 for (int i = 0; i < taille; i++)
                 {
                     for (int j = 0; j < taille; j++)
                     {
                         for (int f = 0; f < 6; f++)
                         {
-                            lettresDe[f] = lettres.Dequeue();
+                            lettresDe[f] = lettres[k];
+                            k++;
                         }
                         des[i, j] = new De(lettresDe);
                     }

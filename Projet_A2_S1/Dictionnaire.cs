@@ -64,7 +64,7 @@ namespace Projet_A2_S1
         /// </summary>
         /// <param name="tab"></param>
         /// <param name="random"></param>
-        static void MelangeAleatoire(string[] tab, Random random)
+        public static void MelangeAleatoire(string[] tab, Random random)
         {
             for (int i = tab.Length - 1; i > 0; i--)
             {
