@@ -215,7 +215,7 @@ namespace Projet_A2_S1
             {
                 points += pointsParLettre[lettre];
             }
-            return points;
+            return points*mot.Length;
         }
     }
 }
