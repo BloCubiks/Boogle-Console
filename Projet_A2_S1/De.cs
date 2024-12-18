@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet_A2_S1
 {
-    internal class De
+    public class De
     {
         private char[] faces;
         private char lettre_visible;

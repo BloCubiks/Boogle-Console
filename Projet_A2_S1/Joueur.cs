@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Projet_A2_S1
 {
-    internal class Joueur
+    public class Joueur
     {
         private string nom;
         private byte score;

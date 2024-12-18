@@ -9,7 +9,7 @@ using System.Security.Cryptography;
 
 namespace Projet_A2_S1
 {
-    internal class Plateau
+    public class Plateau
     {
         private int taille;
         private int nbDes;

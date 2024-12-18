@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
 
-namespace Projet_A2_S1 { 
-    class NuageDeMots
+namespace Projet_A2_S1 {
+    public class NuageDeMots
     {
         /// <summary>
         /// Fonction qui genere un nuage de mot, FAIT PAR IA

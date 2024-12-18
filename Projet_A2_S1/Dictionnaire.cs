@@ -7,33 +7,36 @@ using System.IO;
 
 namespace Projet_A2_S1
 {
-    internal class Dictionnaire
+    public class Dictionnaire
     {
         /// <summary>
         /// Tri par insertion
         /// </summary>
         /// <param name="tab"></param>
-        static string[] TriInsertion(string[] tab)
+
+
+
+        public static void TriInsertion(string[] tab)
         {
             string en_cours;
-
             for (int i = 1; i < tab.Length; i++)
             {
                 en_cours = tab[i];
-                for (int j = i; j > 0 && tab[j - 1].CompareTo(en_cours) > 0; j--)
+                int j = i - 1;
+                while(j>=0 && tab[j].CompareTo(en_cours) > 0)
                 {
-                    tab[j] = tab[j - 1];
+                    tab[j+1] = tab[j];
+                    j--;
                 }
-                tab[i] = en_cours;
+                tab[j+1] = en_cours;
             }
-            return tab;
         }
 
         /// <summary>
         /// Tri bogo (aléatoire)
         /// </summary>
         /// <param name="tab"></param>
-        static string[] TriBogo(string[] tab)
+        public static string[] TriBogo(string[] tab)
         {
             Random random = new Random();
             while (!isSorted(tab))
@@ -47,7 +50,7 @@ namespace Projet_A2_S1
         /// </summary>
         /// <param name="tab"></param>
         /// <returns></returns>
-        static bool isSorted(string[] tab)
+        public static bool isSorted(string[] tab)
         {
             for (int i = 0; i < tab.Length - 1; i++)
             {
@@ -77,7 +80,7 @@ namespace Projet_A2_S1
         /// </summary>
         /// <param name="tab"> dictionnaire</param>
         /// <returns></returns>
-        static string[] TriFusion(string[] tab)
+        public static string[] TriFusion(string[] tab)
         {
             int n = tab.Length;
             if (n <= 1)
@@ -97,7 +100,7 @@ namespace Projet_A2_S1
         /// <param name="A"></param>
         /// <param name="B"></param>
         /// <returns>tableau trié composé d'une valeur des 2 tableaux</returns>
-        static string[] Fusion(string[] A, string[] B)
+        public static string[] Fusion(string[] A, string[] B)
         {
             int a = A.Length;
             int b = B.Length;

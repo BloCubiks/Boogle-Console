@@ -8,17 +8,17 @@ using System.Timers;
 
 namespace Projet_A2_S1
 {
-    internal class Jeu
+    public class Jeu
     {
         /// <summary>
         /// Methode qui permet de mettre en pause le jeu
         /// </summary>
-        static void Passer()
+        public static void Passer()
         {
             Console.WriteLine("Appuyez sur une Entrée pour continuer");
             string j = Console.ReadLine();
         }
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             ///Initialisation du jeu
             Dictionnaire dico;
@@ -77,7 +77,6 @@ namespace Projet_A2_S1
             string mot;
             int compteurTour = 0;
             bool trouve;
-            int nbguess;
             List<string> motsParRound;
 
 
@@ -91,7 +90,6 @@ namespace Projet_A2_S1
                 ///Tour de chaque joueur
                 while (JoueurEnCours < nbJoueurs)
                 {
-                    nbguess = 0;
                     motsParRound = new List<string>();
                     Console.WriteLine("TOUR " + compteurTour);
                     Console.WriteLine("C'est au tour de " + joueurs[JoueurEnCours].Nom);
@@ -103,7 +101,7 @@ namespace Projet_A2_S1
                     ///boucle de jeu de 60 secondes
                     while (finTour > DateTime.Now)
                     {
-                        if (nbguess % 2 == 0) Console.WriteLine(plateau.toString());
+                        Console.WriteLine(plateau.toString());
                         Console.WriteLine("Temps restant : " + (finTour - DateTime.Now) + " secondes");
 
                         mot = Console.ReadLine().ToUpper();
@@ -155,7 +153,6 @@ namespace Projet_A2_S1
                         {
                             Console.WriteLine("Le mot n'est pas valide");
                         }
-                        nbguess += 1;
                         Console.WriteLine("\n");
                     }
                     JoueurEnCours += 1;
