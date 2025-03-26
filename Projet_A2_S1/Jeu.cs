@@ -84,6 +84,7 @@ namespace Projet_A2_S1
             ///Déroulement du jeu
             while (compteurTour < nbToursParJoueur)
             {
+                plateau = new Plateau(taille);
                 int JoueurEnCours = 0;
                 compteurTour++;
                 plateau.ShufflePlateau();
